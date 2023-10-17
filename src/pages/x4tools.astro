@@ -1,0 +1,372 @@
+---
+import '../styles/global.css';
+
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+const pageTitle = "About X4Tools";
+
+const identity = {
+  firstName: "Sarah",
+  country: "Canada",
+  occupation: "Technical Writer",
+  hobbies: ["photography", "birdwatching", "baseball"],
+};
+
+const skills = ["HTML", "CSS", "JavaScript", "React", "Astro", "Writing Docs"];
+
+const happy = true;
+const finished = false;
+const goal = 3;
+
+const skillColor = "navy";
+const fontWeight = "bold";
+const textCase = "upper"
+---
+
+
+
+
+<head>
+    <meta charset = "utf-8">
+    <title>X4 Toolbox</title>
+    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+    <!-- <link rel = "stylesheet" href = "css/styles.css" type = "text/css"> -->
+
+    <!-- Previous version of Bootstrap 3 used in the Big Nerd Ranch Tutorials -->
+    <link rel = "stylesheet"
+          href = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src = "https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body class = "container">
+    <header>
+        <h1>X4 Toolbox</h1>
+    </header>
+    <section>
+        <h3>Reinforced Concrete Sections (MGDA)</h3>
+        <div class = "panel panel-default xInput">
+            <div class = "panel-body">
+                <form mrd-mgda = "form" id="MGDAin">
+    
+                    <div class = "row">
+    
+                        <div class = "col">
+                            <div class = "form-group">
+                                <label for = "fcd">fcd [MPa]</label>
+                                <input class = "form-control" type = "text" name = "fcd" id = "fcd" autofocus required>
+                            </div>
+                        </div>
+    
+                        <div class = "col">
+                            <div class = "form-group">
+                                <label for = "fsyd">fsyd [MPa]</label>
+                                <input class = "form-control" type = "text" name = "fsyd" id = "fsyd" required>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class = "row">
+                        <div class = "col">
+                            <div class = "form-group">
+                                <label for = "msd">Msd [kNm]</label>
+                                <input class = "form-control" type = "text" name = "msd" id = "msd" autofocus required>
+    
+                            </div>
+                        </div>
+    
+                        <div class = "col">
+                            <div class = "form-group">
+                                <label for = "b">b [m]</label>
+                                <input class = "form-control" type = "text" name = "b" id = "b" required>
+    
+                            </div>
+                        </div>
+    
+                        <div class = "col">
+                            <div class = "form-group">
+                                <label for = "h">h [m]</label>
+                                <input class = "form-control" type = "text" name = "h" id = "h" required>
+    
+                            </div>
+                        </div>
+    
+                        <div class = "col">
+                            <div class = "form-group">
+                                <label for = "c">c (axis) [m]</label>
+                                <input class = "form-control" type = "text" name = "c" id = "c" required>
+    
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <br>
+                    <div id="inputHint">All input is ok!</div>
+                    <button type = "submit" class = "btn btn-default">Calculate!</button>
+                    <button type = "reset" class = "btn btn-default">Reset</button>
+                    <br>
+    
+                    <div class = "panel panel-default xOutput">
+                        <div class = "panel-body">
+                            <h4>Calculation Results:</h4>
+                            <br>
+                            <div mrd-mgda = "output" >
+                                <!-- Draw results for concrete fcd -->
+                                <div class = "row">
+                                    <div class = "col">
+                                        <label for = "fcd">fcd: </label>
+                                    </div>
+                                    <div class = "col">
+                                        <p class = "input-res" id = "fcd-res">MPa</p>
+                                    </div>
+                                </div>
+                                <!-- Draw results for steel fsyd -->
+                                <div class = "row">
+                                    <div class = "col">
+                                        <label for = "fsyd">fsyd: </label>
+                                    </div>
+                                    <div class = "col">
+                                        <p class = "input-res" id = "fsyd-res">MPa</p>
+                                    </div>
+                                </div>
+                                <!-- Draw results for miu -->
+                                <div class = "row">
+                                    <div class = "col">
+                                        <label for = "miu-res">miu: </label>
+                                    </div>
+                                    <div class = "col">
+                                        <p class = "aux-res" id = "miu-res"></p>
+                                    </div>
+                                </div>
+                                <!-- Draw results for niu -->
+                                <div class = "row">
+                                    <div class = "col">
+                                        <label for = "niu-res">niu: </label>
+                                    </div>
+                                    <div class = "col">
+                                        <p class = "aux-res" id = "niu-res"></p>
+                                    </div>
+                                </div>
+                                <!-- Draw results for As,req -->
+                                <div class = "row">
+                                    <div class = "col">
+                                        <label for = "as-res">As,required: </label>
+                                    </div>
+                                    <div class = "col">
+                                        <p class = "final-res" id = "as-res">cm<sup>2</sup></p>
+                                    </div>
+                                </div>
+    
+                            </div>
+                        </div>
+                    </div>
+    
+                </form>
+            </div>
+        </div>
+    
+        <div class = "panel panel-default xInput">
+            <div class = "panel-body">
+                <h4>Calculation List:</h4>
+                <div mrd-mgda = "calclist">
+    
+                </div>
+            </div>
+        </div>
+    
+    </section>
+    <!-- JQuery loaded above... following line should remain commented out... -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" charset="utf-8"></script> -->
+    
+     <!-- <script type="text/javascript" src="../js/xTools.js" charset="utf-8"></script> -->
+    
+    
+</body>
+
+<script>
+    // (function (window) {
+        'use strict';
+        let App =  {};
+
+        let elForm = document.getElementById('MGDAin');
+        let elfcd = document.getElementById('fcd');
+        let elfsyd = document.getElementById('fsyd');
+        let elMsd = document.getElementById('msd');
+        let elb = document.getElementById('b');
+        let elh = document.getElementById('h');
+        let elc = document.getElementById('c');
+        let elInputHint = document.getElementById('inputHint');
+        let elfcdRes = document.getElementById('fcd-res');
+        let elfsydRes = document.getElementById('fsyd-res');
+        let elmiuRes = document.getElementById('miu-res');
+        let elniuRes = document.getElementById('niu-res');
+        let elasRes = document.getElementById('as-res');
+        let userVal;
+
+        function testInputVal(userVal) {
+            return /.[0-9]/.test(userVal);
+        }
+
+        function fcdHint() {
+            userVal = elfcd.value;
+            elfsyd.innerText = 'You input ' + userVal;
+            if (testInputVal(userVal) === false) {
+                elInputHint.innerHTML = 'fcd must be a numeric value!!!!!';
+            } else {
+                elInputHint.innerHTML = 'fcd input ok!';
+            }
+        }
+
+        function fsydHint() {
+            userVal = elfsyd.value;
+            if (testInputVal(userVal) === false) {
+                elInputHint.innerHTML = 'fsyd must be a numeric value!!!!!';
+            } else {
+                elInputHint.innerHTML = 'fsyd input ok!';
+            }
+        }
+
+        function msdHint() {
+            userVal = elMsd.value;
+            if (testInputVal(userVal) === false) {
+                elInputHint.innerHTML = 'Msd must be a numeric value!!!!!';
+            } else {
+                elInputHint.innerHTML = 'Msd input ok!';
+            }
+        }
+
+        function bHint() {
+            userVal = elb.value;
+            if (testInputVal(userVal) === false) {
+                elInputHint.innerHTML = 'b must be a numeric value!!!!!';
+            } else {
+                elInputHint.innerHTML = 'b input ok!';
+            }
+        }
+
+        function hHint() {
+            userVal = elh.value;
+            if (testInputVal(userVal) === false) {
+                elInputHint.innerHTML = 'h must be a numeric value!!!!!';
+            } else {
+                elInputHint.innerHTML = 'h input ok!';
+            }
+        }
+
+        function cHint() {
+            userVal = elc.value;
+            if (testInputVal(userVal) === false) {
+                elInputHint.innerHTML = 'c must be a numeric value!!!!!';
+            } else {
+                elInputHint.innerHTML = 'c input ok!';
+            }
+        }
+
+        function doCalc(event) {
+            let ifcd = elfcd.value;
+            let ifsyd = elfsyd.value;
+            let iMsd = elMsd.value;
+            let ib = elb.value;
+            let ih = elh.value;
+            let ic = elc.value;
+            let miu = iMsd/(ib*(ih-ic)**2*ifcd*1000);
+            let niu = (1-Math.sqrt(1-2.42*miu))/1.21;
+            let asc = niu*ib*(ih-ic)*ifcd*1000/(ifsyd*0.1);
+            // miu = miu.round(miu,4);
+            // niu = niu.round(niu,4);
+            // asc = asc.round(asc,2);
+
+            elfcdRes.innerHTML = ifcd + ' MPa';
+            elfsydRes.innerHTML = ifsyd+ ' MPa';
+            elmiuRes.innerHTML = miu.toFixed(4); //miu;
+            elniuRes.innerHTML = niu.toFixed(4); //niu; //
+            elasRes.innerHTML = asc.toFixed(2) + " cm<sup>2</sup>"; //asc; //
+            event.preventDefault();
+            // event.stopPropagation();
+        }
+
+
+    // Create Event Listeners for validation of input fields
+        elfcd.addEventListener('input', fcdHint, false);
+        elfcdRes.value = elfcd.value + ' MPa';
+        elfsyd.addEventListener('input', fsydHint, false);
+        elfsydRes.value = elfsyd.value + ' MPa';
+        elMsd.addEventListener('input', msdHint, false);
+        elmiuRes.value = elMsd.value + ' kNm';
+        elb.addEventListener('input', bHint, false);
+        elniuRes.value = elb.value + ' m';
+        elh.addEventListener('input', hHint, false);
+        elasRes.value = elh.value + ' m';
+        elc.addEventListener('input', cHint, false);
+
+        elForm.addEventListener('submit', doCalc, false);
+
+    // write the values that were input!
+
+        App.testInputVal = testInputVal;
+        App.fcdHint = fcdHint;
+        App.fsydHint = fsydHint;
+        App.msdHint = msdHint;
+        App.bHint = bHint;
+        App.hHint = hHint;
+        App.cHint = cHint;
+    //
+        window.App = App;
+    // })(window);
+</script>
+
+<style define:lets="{{skillColor, fontWeight, textCase}}">
+    html,body {
+        background-color: darkgray;
+        color: white;
+    }
+
+    .container {
+        background-color:  darkGray;
+        color: white;
+    }
+    #MGDAin {
+        background-color: lightGray;
+        color: black;
+    }
+
+    label {
+        color: black;
+    }
+
+    .xInput {
+        width: 38%;
+        background-color: lightGray;
+        font-color: black;
+    }
+
+    .xOutput {
+        width: 100%;
+        background-color: darkgray;
+        color: black;
+        border-color: darkgray;
+        border-style: solid;
+    }
+
+    .panel-body {
+        background-color: lightGray;
+        color: black;
+
+    }
+    #inputHint {
+        font-family: "Segoe UI";
+        font-size: 2vw;
+        color: darkred;
+        padding: 1.0em 0;
+    }
+</style>

@@ -1,9 +1,11 @@
 ---
+import '../styles/global.css';
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
+const pageTitle = "X4Tools Home Page"
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title={pageTitle}>
 	<main>
 		<svg
 			class="astro-a"
@@ -50,9 +52,9 @@ import Card from '../components/Card.astro';
 				body="Everyone has a blog these days. Even X4Tools..."
 			/>
 			<Card
-				href="https://astro.build/themes/"
-				title="Themes"
-				body="Explore a galaxy of community-built starter themes."
+				href="/x4tools/"
+				title="Launch X4Tools"
+				body="Launch the toolbox that is always there for you..."
 			/>
 			<Card
 				href="https://astro.build/chat/"

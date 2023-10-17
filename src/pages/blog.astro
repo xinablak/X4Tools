@@ -1,9 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
+const pageTitle  = "blog X4Tools"
 ---
 
-<Layout title="About X4Tools">
+<Layout title={pageTitle}>
 	<main>
 		<svg
 			class="astro-a"
@@ -60,6 +61,17 @@ import Card from '../components/Card.astro';
 				body="Come say hi to our amazing Discord community. ❤️"
 			/>
 		</ul>
+
+        <!-- Some blog content -->
+        <h1>My Astro Site</h1>
+        <h1>My Astro Learning Blog</h1>
+        <p>This is where I will post about my journey learning Astro.</p>
+        <ul>
+            <li><a href="/posts/post-01/">Post 01</a></li>
+            <li><a href="/posts/post-02/">Post 02</a></li>
+            <li><a href="/posts/post-03/">Post 03</a></li>
+        </ul>
+
 	</main>
 </Layout>
 
